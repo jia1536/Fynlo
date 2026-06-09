@@ -1,0 +1,4 @@
+node_modules/
+data/fynlo.db
+.env
+*.log

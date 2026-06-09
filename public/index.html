@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fynlo — Project & Profit Manager</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23C9973A'/><text x='16' y='23' text-anchor='middle' font-size='20' font-family='sans-serif' fill='%230B1F3A'>F</text></svg>">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.7.0/dist/tabler-icons.min.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --navy:#0B1F3A;--navy-mid:#132d52;--navy-light:#1a3a6b;
+    --gold:#C9973A;--gold-light:#E8B85A;--gold-pale:#FBF3E3;--gold-dim:#7a5820;
+    --cream:#F5F7FA;--ink:#0B1F3A;--muted:#5a6a82;
+    --border:#e2e8f0;--surface:#ffffff;--surface2:#F5F7FA;
+    --green:#15803d;--green-bg:#dcfce7;--red:#b91c1c;--red-bg:#fef2f2;
+    --purple:#7c3aed;--purple-bg:#ede9fe;
+  }
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh}
+  .page{display:none}.page.active{display:block}
+
+  /* NAV */
+  nav{background:var(--navy);padding:0 24px;display:flex;align-items:center;height:54px;position:sticky;top:0;z-index:100}
+  .brand{display:flex;align-items:center;gap:9px;margin-right:32px;cursor:pointer;text-decoration:none}
+  .brand-mark{width:30px;height:30px;background:var(--gold);border-radius:7px;display:flex;align-items:center;justify-content:center}
+  .brand-mark i{font-size:17px;color:var(--navy)}
+  .brand-name{font-size:17px;font-weight:600;color:#fff;letter-spacing:-.01em}
+  .brand-name span{color:var(--gold-light)}
+  .nav-link{padding:0 14px;height:54px;display:flex;align-items:center;font-size:13px;color:rgba(255,255,255,.5);cursor:pointer;border-bottom:2px solid transparent;transition:color .15s}
+  .nav-link:hover{color:rgba(255,255,255,.85)}
+  .nav-link.active{color:#fff;border-bottom-color:var(--gold)}
+  .nav-right{margin-left:auto}
+  .nav-btn{background:var(--gold);color:var(--navy);font-size:13px;font-weight:600;padding:6px 16px;border-radius:20px;cursor:pointer;border:none;display:flex;align-items:center;gap:5px}
+  .nav-btn:hover{background:var(--gold-light)}
+
+  /* HERO */
+  .hero{background:var(--navy);padding:44px 24px 40px}
+  .hero-inner{max-width:1100px;margin:0 auto}
+  .hero-eye{font-size:11px;font-weight:600;color:var(--gold-light);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+  .hero-title{font-size:30px;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:-.02em}
+  .hero-title span{color:var(--gold-light)}
+  .hero-sub{color:rgba(255,255,255,.5);font-size:14px;line-height:1.6;max-width:460px}
+  .hero-actions{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}
+
+  /* BUTTONS */
+  .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--ink);transition:background .12s,transform .1s}
+  .btn:hover{background:var(--surface2)}.btn:active{transform:scale(.98)}
+  .btn-gold{background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:600}
+  .btn-gold:hover{background:var(--gold-light);color:var(--navy)}
+  .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.15)}
+  .btn-ghost:hover{background:rgba(255,255,255,.15);color:#fff}
+  .btn-danger{background:var(--red-bg);color:var(--red);border-color:#fecaca}
+  .btn-sm{padding:5px 10px;font-size:12px}
+
+  /* LAYOUT */
+  .container{max-width:1100px;margin:0 auto;padding:24px 20px}
+
+  /* METRIC CARDS */
+  .metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:24px}
+  .metric-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 18px;border-top:3px solid var(--border)}
+  .metric-card.profit{border-top-color:var(--green)}
+  .metric-card.investment{border-top-color:var(--gold)}
+  .metric-card.cost{border-top-color:#1d4ed8}
+  .metric-card.active{border-top-color:var(--purple)}
+  .metric-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:17px}
+  .metric-icon.profit{background:var(--green-bg);color:var(--green)}
+  .metric-icon.investment{background:var(--gold-pale);color:var(--gold-dim)}
+  .metric-icon.cost{background:#dbeafe;color:#1d4ed8}
+  .metric-icon.active{background:var(--purple-bg);color:var(--purple)}
+  .metric-label{font-size:12px;color:var(--muted);margin-bottom:4px}
+  .metric-value{font-size:22px;font-weight:700;color:var(--ink)}
+
+  /* TABLE CARD */
+  .section-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+  .section-top{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;border-bottom:1px solid var(--border)}
+  .section-title{font-size:14px;font-weight:600;color:var(--ink)}
+  .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .search-box{display:flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:0 10px;height:34px}
+  .search-box input{border:none;background:transparent;font-size:13px;color:var(--ink);outline:none;width:160px}
+  .search-box i{color:var(--muted);font-size:15px}
+  select.fsel{height:34px;padding:0 10px;border:1px solid var(--border);border-radius:8px;background:var(--surface2);color:var(--ink);font-size:13px;cursor:pointer}
+
+  /* TABLE */
+  .tbl-wrap{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;min-width:800px}
+  thead{background:var(--surface2)}
+  th{padding:9px 12px;font-size:11px;font-weight:600;color:var(--muted);text-align:left;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+  td{padding:10px 12px;font-size:13px;color:var(--ink);border-bottom:1px solid var(--border);vertical-align:middle}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover td{background:#fafbfd}
+  .badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600}
+  .badge-completed{background:var(--green-bg);color:#166534}
+  .badge-pending{background:var(--gold-pale);color:var(--gold-dim)}
+  .profit-pos{color:var(--green);font-weight:600}
+  .profit-neg{color:var(--red);font-weight:600}
+  .actions-cell{display:flex;gap:5px}
+  .empty{padding:48px;text-align:center;color:var(--muted);font-size:13px}
+  .empty i{font-size:32px;display:block;margin-bottom:10px;color:#cbd5e1}
+
+  /* MODAL */
+  .overlay{display:none;position:fixed;inset:0;background:rgba(11,31,58,.6);align-items:center;justify-content:center;z-index:200;padding:20px}
+  .overlay.open{display:flex}
+  .modal{background:var(--surface);border-radius:14px;border:1px solid var(--border);width:100%;max-width:500px;max-height:90vh;overflow-y:auto}
+  .modal-head{padding:18px 20px 0;display:flex;align-items:center;justify-content:space-between}
+  .modal-title{font-size:15px;font-weight:600;color:var(--ink)}
+  .modal-body{padding:20px}
+  .modal-foot{padding:0 20px 20px;display:flex;justify-content:flex-end;gap:8px}
+  .frow{margin-bottom:14px}
+  .flabel{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px}
+  .finput{width:100%;height:38px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--ink);padding:0 12px;font-size:13px;outline:none;transition:border-color .15s, box-shadow .15s}
+  .finput:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,151,58,.2)}
+  .frow2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:480px){.frow2{grid-template-columns:1fr}}
+  .profit-preview{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:11px 14px;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;margin-top:4px}
+  .profit-preview strong{font-size:15px;font-weight:700}
+
+  /* TOAST */
+  #toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;border-radius:8px;padding:11px 18px;font-size:13px;display:none;align-items:center;gap:9px;z-index:300;max-width:280px;border:1px solid var(--navy-light)}
+  #toast.show{display:flex;animation:tin .2s ease}
+  #toast i{color:var(--gold-light);font-size:17px}
+  @keyframes tin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+  /* LOADING */
+  .loading{padding:48px;text-align:center;color:var(--muted);font-size:13px}
+  .spinner{display:inline-block;width:20px;height:20px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite;margin-bottom:10px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* RESPONSIVE */
+  @media(max-width:600px){
+    .hero-title{font-size:22px}
+    .container{padding:16px 12px}
+    .section-top{flex-direction:column;align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand" onclick="showPage('home')">
+    <div class="brand-mark"><i class="ti ti-chart-arrows-vertical"></i></div>
+    <span class="brand-name">Fyn<span>lo</span></span>
+  </div>
+  <span class="nav-link active" id="nl-home" onclick="showPage('home')">Overview</span>
+  <span class="nav-link" id="nl-dashboard" onclick="showPage('dashboard')">Projects</span>
+  <div class="nav-right">
+    <button class="nav-btn" onclick="openModal()"><i class="ti ti-plus"></i> New entry</button>
+  </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div id="home" class="page active">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-eye">Financial command centre</div>
+      <h1 class="hero-title">Your projects. <span>Your profits.</span></h1>
+      <p class="hero-sub">Track every customer, cost, and return — all in one sharp dashboard built for serious work.</p>
+      <div class="hero-actions">
+        <button class="btn btn-gold" onclick="openModal()"><i class="ti ti-plus"></i> Add new entry</button>
+        <button class="btn btn-ghost" onclick="showPage('dashboard')"><i class="ti ti-table"></i> View all projects</button>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div id="home-metrics" class="metric-grid"></div>
+    <div class="section-card">
+      <div class="section-top">
+        <span class="section-title">Recent projects</span>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr>
+            <th>Customer</th><th>Work</th><th>Project cost</th>
+            <th>Investor</th><th>Profit</th><th>Status</th>
+          </tr></thead>
+          <tbody id="home-tbody"><tr><td colspan="6"><div class="loading"><div class="spinner"></div><br>Loading…</div></td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD PAGE -->
+<div id="dashboard" class="page">
+  <div class="container">
+    <div id="dash-metrics" class="metric-grid"></div>
+    <div class="section-card">
+      <div class="section-top">
+        <span class="section-title">All projects</span>
+        <div class="controls">
+          <div class="search-box"><i class="ti ti-search"></i><input id="srch" type="text" placeholder="Search customer or work…" oninput="loadTable()"></div>
+          <select class="fsel" id="sf" onchange="loadTable()">
+            <option value="">All status</option>
+            <option value="Completed">Completed</option>
+            <option value="Pending">Pending</option>
+          </select>
+          <button class="btn btn-gold btn-sm" onclick="openModal()"><i class="ti ti-plus"></i> Add</button>
+        </div>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr>
+            <th>Customer</th><th>Description</th><th>Project cost</th>
+            <th>Done by</th><th>Investor</th><th>Investment</th>
+            <th>Profit</th><th>Status</th><th>Actions</th>
+          </tr></thead>
+          <tbody id="main-tbody"><tr><td colspan="9"><div class="loading"><div class="spinner"></div><br>Loading…</div></td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div id="overlay" class="overlay" onclick="overlayClick(event)">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mtitle">
+    <div class="modal-head">
+      <span class="modal-title" id="mtitle">New project entry</span>
+      <button class="btn btn-sm" onclick="closeModal()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="eid">
+      <div class="frow">
+        <label class="flabel">Customer name *</label>
+        <input class="finput" id="fc" type="text" placeholder="e.g. Acme Corp">
+      </div>
+      <div class="frow">
+        <label class="flabel">Work description *</label>
+        <input class="finput" id="fw" type="text" placeholder="e.g. Website redesign">
+      </div>
+      <div class="frow2">
+        <div class="frow">
+          <label class="flabel">Project cost (₹) *</label>
+          <input class="finput" id="fco" type="number" min="0" placeholder="0" oninput="updatePreview()">
+        </div>
+        <div class="frow">
+          <label class="flabel">Work completed by</label>
+          <input class="finput" id="fb" type="text" placeholder="Employee name">
+        </div>
+      </div>
+      <div class="frow2">
+        <div class="frow">
+          <label class="flabel">Investor name</label>
+          <input class="finput" id="fi" type="text" placeholder="Investor name">
+        </div>
+        <div class="frow">
+          <label class="flabel">Investment amount (₹)</label>
+          <input class="finput" id="fa" type="number" min="0" placeholder="0" oninput="updatePreview()">
+        </div>
+      </div>
+      <div class="frow">
+        <label class="flabel">Status</label>
+        <select class="finput" id="fst">
+          <option value="Pending">Pending</option>
+          <option value="Completed">Completed</option>
+        </select>
+      </div>
+      <div class="profit-preview">
+        <i class="ti ti-calculator" style="color:var(--gold);font-size:16px"></i>
+        <span style="font-size:12px">Auto-calculated profit:</span>
+        <strong id="pp" style="color:var(--green)">₹0</strong>
+        <span style="font-size:11px;color:var(--muted)">(cost − investment)</span>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-gold" onclick="saveEntry()"><i class="ti ti-check"></i> Save entry</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"><i class="ti ti-circle-check"></i><span id="toast-msg">Done</span></div>
+
+<script>
+const fmt = n => '₹' + Number(n || 0).toLocaleString('en-IN');
+const esc = s => String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+let toastTimer;
+
+async function api(path, opts = {}) {
+  const res = await fetch(path, { headers: {'Content-Type':'application/json'}, ...opts });
+  if (!res.ok) { const e = await res.json().catch(()=>({error:'Request failed'})); throw new Error(e.error || 'Error'); }
+  return res.json();
+}
+
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+  document.getElementById(name).classList.add('active');
+  document.getElementById('nl-' + name).classList.add('active');
+  loadAll();
+}
+
+async function loadMetrics(id) {
+  const m = await api('/api/metrics');
+  document.getElementById(id).innerHTML = `
+    <div class="metric-card profit"><div class="metric-icon profit"><i class="ti ti-trending-up"></i></div><div class="metric-label">Total profit</div><div class="metric-value">${fmt(m.total_profit)}</div></div>
+    <div class="metric-card investment"><div class="metric-icon investment"><i class="ti ti-coin"></i></div><div class="metric-label">Total investment</div><div class="metric-value">${fmt(m.total_investment)}</div></div>
+    <div class="metric-card cost"><div class="metric-icon cost"><i class="ti ti-file-invoice"></i></div><div class="metric-label">Total project cost</div><div class="metric-value">${fmt(m.total_cost)}</div></div>
+    <div class="metric-card active"><div class="metric-icon active"><i class="ti ti-users"></i></div><div class="metric-label">Active projects</div><div class="metric-value">${m.active_projects}</div></div>`;
+}
+
+async function loadHomeTable() {
+  const rows = await api('/api/projects');
+  const recent = rows.slice(0, 6);
+  const tb = document.getElementById('home-tbody');
+  if (!recent.length) { tb.innerHTML = `<tr><td colspan="6"><div class="empty"><i class="ti ti-inbox"></i>No entries yet. Add your first project.</div></td></tr>`; return; }
+  tb.innerHTML = recent.map(r => `<tr>
+    <td><strong>${esc(r.customer_name)}</strong></td>
+    <td style="color:var(--muted)">${esc(r.work_description)}</td>
+    <td>${fmt(r.project_cost)}</td>
+    <td style="color:var(--muted)">${esc(r.investor_name || '—')}</td>
+    <td class="${r.profit < 0 ? 'profit-neg' : 'profit-pos'}">${fmt(r.profit)}</td>
+    <td><span class="badge badge-${r.status.toLowerCase()}">${r.status}</span></td>
+  </tr>`).join('');
+}
+
+async function loadTable() {
+  const search = document.getElementById('srch').value;
+  const status = document.getElementById('sf').value;
+  const params = new URLSearchParams();
+  if (search) params.append('search', search);
+  if (status) params.append('status', status);
+  const rows = await api('/api/projects?' + params);
+  const tb = document.getElementById('main-tbody');
+  if (!rows.length) { tb.innerHTML = `<tr><td colspan="9"><div class="empty"><i class="ti ti-search-off"></i>No results found.</div></td></tr>`; return; }
+  tb.innerHTML = rows.map(r => `<tr>
+    <td><strong>${esc(r.customer_name)}</strong></td>
+    <td style="color:var(--muted)">${esc(r.work_description)}</td>
+    <td>${fmt(r.project_cost)}</td>
+    <td style="color:var(--muted)">${esc(r.work_completed_by || '—')}</td>
+    <td style="color:var(--muted)">${esc(r.investor_name || '—')}</td>
+    <td>${fmt(r.investment_amount)}</td>
+    <td class="${r.profit < 0 ? 'profit-neg' : 'profit-pos'}">${fmt(r.profit)}</td>
+    <td><span class="badge badge-${r.status.toLowerCase()}">${r.status}</span></td>
+    <td><div class="actions-cell">
+      <button class="btn btn-sm" onclick="editRow(${r.id})" aria-label="Edit"><i class="ti ti-edit"></i></button>
+      <button class="btn btn-sm btn-danger" onclick="delRow(${r.id})" aria-label="Delete"><i class="ti ti-trash"></i></button>
+    </div></td>
+  </tr>`).join('');
+}
+
+function loadAll() {
+  loadMetrics('home-metrics').catch(console.error);
+  loadMetrics('dash-metrics').catch(console.error);
+  loadHomeTable().catch(console.error);
+  loadTable().catch(console.error);
+}
+
+function openModal(reset = true) {
+  if (reset) {
+    document.getElementById('mtitle').textContent = 'New project entry';
+    document.getElementById('eid').value = '';
+    ['fc','fw','fb','fi'].forEach(id => document.getElementById(id).value = '');
+    ['fco','fa'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('fst').value = 'Pending';
+    updatePreview();
+  }
+  document.getElementById('overlay').classList.add('open');
+  setTimeout(() => document.getElementById('fc').focus(), 50);
+}
+function closeModal() { document.getElementById('overlay').classList.remove('open'); }
+function overlayClick(e) { if (e.target === document.getElementById('overlay')) closeModal(); }
+
+function updatePreview() {
+  const c = parseFloat(document.getElementById('fco').value) || 0;
+  const a = parseFloat(document.getElementById('fa').value) || 0;
+  const p = c - a;
+  const el = document.getElementById('pp');
+  el.textContent = fmt(p);
+  el.style.color = p < 0 ? 'var(--red)' : 'var(--green)';
+}
+
+async function saveEntry() {
+  const customer_name = document.getElementById('fc').value.trim();
+  const work_description = document.getElementById('fw').value.trim();
+  if (!customer_name || !work_description) { toast('Fill in the required fields', 'warn'); return; }
+  const body = {
+    customer_name, work_description,
+    project_cost: parseFloat(document.getElementById('fco').value) || 0,
+    work_completed_by: document.getElementById('fb').value.trim(),
+    investor_name: document.getElementById('fi').value.trim(),
+    investment_amount: parseFloat(document.getElementById('fa').value) || 0,
+    status: document.getElementById('fst').value
+  };
+  const eid = document.getElementById('eid').value;
+  try {
+    if (eid) { await api('/api/projects/' + eid, { method: 'PUT', body: JSON.stringify(body) }); toast('Entry updated'); }
+    else { await api('/api/projects', { method: 'POST', body: JSON.stringify(body) }); toast('Entry added'); }
+    closeModal(); loadAll();
+  } catch (e) { toast(e.message, 'err'); }
+}
+
+async function editRow(id) {
+  const r = await api('/api/projects/' + id);
+  document.getElementById('mtitle').textContent = 'Edit entry';
+  document.getElementById('eid').value = r.id;
+  document.getElementById('fc').value = r.customer_name;
+  document.getElementById('fw').value = r.work_description;
+  document.getElementById('fco').value = r.project_cost;
+  document.getElementById('fb').value = r.work_completed_by || '';
+  document.getElementById('fi').value = r.investor_name || '';
+  document.getElementById('fa').value = r.investment_amount || 0;
+  document.getElementById('fst').value = r.status;
+  updatePreview();
+  openModal(false);
+}
+
+async function delRow(id) {
+  if (!confirm('Delete this entry? This cannot be undone.')) return;
+  try { await api('/api/projects/' + id, { method: 'DELETE' }); toast('Entry deleted'); loadAll(); }
+  catch (e) { toast(e.message, 'err'); }
+}
+
+function toast(msg, type = 'ok') {
+  clearTimeout(toastTimer);
+  const icons = { ok: 'ti-circle-check', warn: 'ti-alert-circle', err: 'ti-circle-x' };
+  document.querySelector('#toast i').className = 'ti ' + (icons[type] || icons.ok);
+  document.getElementById('toast-msg').textContent = msg;
+  const el = document.getElementById('toast');
+  el.classList.add('show');
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
+}
+
+// add GET single project endpoint for edit
+(async () => {
+  const orig = api;
+  window.api = async (path, opts = {}) => {
+    const res = await fetch(path, { headers: {'Content-Type':'application/json'}, ...opts });
+    if (!res.ok) { const e = await res.json().catch(()=>({error:'Request failed'})); throw new Error(e.error || 'Error'); }
+    return res.json();
+  };
+})();
+
+loadAll();
+</script>
+</body>
+</html>
