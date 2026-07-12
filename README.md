@@ -4,7 +4,7 @@ A sharp, professional dashboard to manage customers, invoices, project costs, an
 
 ---
 
-## ⚡ Run Locally (Your Computer)
+## Run Locally (Your Computer)
 
 ### Step 1 — Install Node.js
 Download and install from https://nodejs.org (choose the "LTS" version)
@@ -30,7 +30,7 @@ That's it! Your data is saved in `data/fynlo.db` (a local SQLite file).
 
 ---
 
-## 🌐 Deploy to the Web (Free — so your father can use it from anywhere)
+## Deploy to the Web (Free — so your father can use it from anywhere)
 
 We'll use **Render.com** — it's free, reliable, and takes about 5 minutes.
 
@@ -66,12 +66,12 @@ You'll get a URL like: `https://fynlo.onrender.com`
 
 **Share that URL with your father — he can use it from any device, anywhere.**
 
-### ⚠️ Important note about free Render hosting
+### Important note about free Render hosting
 On the free tier, the app "sleeps" after 15 minutes of inactivity and takes ~30 seconds to wake up on the next visit. To avoid this, you can upgrade to Render's $7/month plan, or use **Railway.app** (also has a free tier with no sleep).
 
 ---
 
-## 🗄️ Database
+## Database
 
 Data is stored in a SQLite file at `data/fynlo.db`.
 
@@ -83,7 +83,7 @@ Data is stored in a SQLite file at `data/fynlo.db`.
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 fynlo/
@@ -98,7 +98,7 @@ fynlo/
 
 ---
 
-## 🔧 API Endpoints
+## API Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
