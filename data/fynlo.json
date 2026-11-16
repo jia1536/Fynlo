@@ -1,4 +1,65 @@
 {
-  "projects": [],
+  "projects": [
+    {
+      "id": 5,
+      "customer_name": "jhgfdrtfyhjlk",
+      "work_description": "xzezsrtfyhyuj",
+      "project_cost": 78562,
+      "work_completed_by": "hvfdtseasertyu",
+      "investor_name": "xsdertyuik",
+      "investment_amount": 25799,
+      "status": "Pending",
+      "created_at": "2026-11-16T14:02:32.842Z",
+      "profit": 52763
+    },
+    {
+      "customer_name": "Ravi Sharma",
+      "work_description": "E-commerce platform",
+      "project_cost": 85000,
+      "work_completed_by": "Amit Kumar",
+      "investor_name": "Startup Fund",
+      "investment_amount": 30000,
+      "status": "Completed",
+      "id": 1,
+      "profit": 55000,
+      "created_at": "2026-11-16T14:01:49.453Z"
+    },
+    {
+      "customer_name": "Meera Patel",
+      "work_description": "Mobile app development",
+      "project_cost": 120000,
+      "work_completed_by": "Priya Singh",
+      "investor_name": "Self-funded",
+      "investment_amount": 0,
+      "status": "Pending",
+      "id": 2,
+      "profit": 120000,
+      "created_at": "2026-11-16T14:01:49.453Z"
+    },
+    {
+      "customer_name": "Tech Innovations",
+      "work_description": "CRM integration",
+      "project_cost": 45000,
+      "work_completed_by": "Rahul Verma",
+      "investor_name": "Anand Mehta",
+      "investment_amount": 15000,
+      "status": "Completed",
+      "id": 3,
+      "profit": 30000,
+      "created_at": "2026-11-16T14:01:49.453Z"
+    },
+    {
+      "customer_name": "Global Traders",
+      "work_description": "Inventory system",
+      "project_cost": 60000,
+      "work_completed_by": "Sneha Joshi",
+      "investor_name": "",
+      "investment_amount": 0,
+      "status": "Pending",
+      "id": 4,
+      "profit": 60000,
+      "created_at": "2026-11-16T14:01:49.453Z"
+    }
+  ],
   "nextId": 6
 }

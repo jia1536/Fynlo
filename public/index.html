@@ -14,22 +14,28 @@
     --cream:#F5F7FA;--ink:#0B1F3A;--muted:#5a6a82;
     --border:#e2e8f0;--surface:#ffffff;--surface2:#F5F7FA;
     --green:#15803d;--green-bg:#dcfce7;--red:#b91c1c;--red-bg:#fef2f2;
-    --purple:#7c3aed;--purple-bg:#ede9fe;
+    --blue:#1d4ed8;--blue-bg:#dbeafe;--purple:#7c3aed;--purple-bg:#ede9fe;
   }
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh}
+  button,select,input{font-family:inherit}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:2px}
   .page{display:none}.page.active{display:block}
 
   /* NAV */
   nav{background:var(--navy);padding:0 24px;display:flex;align-items:center;height:54px;position:sticky;top:0;z-index:100}
-  .brand{display:flex;align-items:center;gap:9px;margin-right:32px;cursor:pointer;text-decoration:none}
+  .brand{display:flex;align-items:center;gap:9px;margin-right:32px;cursor:pointer}
   .brand-mark{width:30px;height:30px;background:var(--gold);border-radius:7px;display:flex;align-items:center;justify-content:center}
   .brand-mark i{font-size:17px;color:var(--navy)}
   .brand-name{font-size:17px;font-weight:600;color:#fff;letter-spacing:-.01em}
   .brand-name span{color:var(--gold-light)}
-  .nav-link{padding:0 14px;height:54px;display:flex;align-items:center;font-size:13px;color:rgba(255,255,255,.5);cursor:pointer;border-bottom:2px solid transparent;transition:color .15s}
-  .nav-link:hover{color:rgba(255,255,255,.85)}
+  .nav-link{padding:0 14px;height:54px;display:flex;align-items:center;font-size:13px;color:rgba(255,255,255,.55);cursor:pointer;border-bottom:2px solid transparent;transition:color .15s;background:none;border-top:none;border-left:none;border-right:none}
+  .nav-link:hover{color:rgba(255,255,255,.9)}
   .nav-link.active{color:#fff;border-bottom-color:var(--gold)}
-  .nav-right{margin-left:auto}
+  .nav-right{margin-left:auto;display:flex;align-items:center;gap:16px}
+  .sync{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,.55);white-space:nowrap}
+  .sync-dot{width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 0 rgba(74,222,128,.6);animation:pulse 2.2s infinite}
+  .sync.off .sync-dot{background:#f87171;animation:none}
+  @keyframes pulse{70%{box-shadow:0 0 0 6px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
   .nav-btn{background:var(--gold);color:var(--navy);font-size:13px;font-weight:600;padding:6px 16px;border-radius:20px;cursor:pointer;border:none;display:flex;align-items:center;gap:5px}
   .nav-btn:hover{background:var(--gold-light)}
 
@@ -39,36 +45,60 @@
   .hero-eye{font-size:11px;font-weight:600;color:var(--gold-light);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
   .hero-title{font-size:30px;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:-.02em}
   .hero-title span{color:var(--gold-light)}
-  .hero-sub{color:rgba(255,255,255,.5);font-size:14px;line-height:1.6;max-width:460px}
+  .hero-sub{color:rgba(255,255,255,.55);font-size:14px;line-height:1.6;max-width:460px}
   .hero-actions{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}
 
   /* BUTTONS */
   .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--ink);transition:background .12s,transform .1s}
-  .btn:hover{background:var(--surface2)}.btn:active{transform:scale(.98)}
+  .btn:hover:not(:disabled){background:var(--surface2)}.btn:active:not(:disabled){transform:scale(.98)}
+  .btn:disabled{opacity:.55;cursor:not-allowed}
   .btn-gold{background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:600}
-  .btn-gold:hover{background:var(--gold-light);color:var(--navy)}
+  .btn-gold:hover:not(:disabled){background:var(--gold-light)}
   .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.15)}
-  .btn-ghost:hover{background:rgba(255,255,255,.15);color:#fff}
+  .btn-ghost:hover:not(:disabled){background:rgba(255,255,255,.15)}
   .btn-danger{background:var(--red-bg);color:var(--red);border-color:#fecaca}
+  .btn-danger:hover:not(:disabled){background:#fee2e2}
   .btn-sm{padding:5px 10px;font-size:12px}
 
   /* LAYOUT */
   .container{max-width:1100px;margin:0 auto;padding:24px 20px}
 
   /* METRIC CARDS */
-  .metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:24px}
+  .metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:24px}
   .metric-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 18px;border-top:3px solid var(--border)}
   .metric-card.profit{border-top-color:var(--green)}
   .metric-card.investment{border-top-color:var(--gold)}
-  .metric-card.cost{border-top-color:#1d4ed8}
+  .metric-card.cost{border-top-color:var(--blue)}
+  .metric-card.margin{border-top-color:#0891b2}
   .metric-card.active{border-top-color:var(--purple)}
   .metric-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:17px}
   .metric-icon.profit{background:var(--green-bg);color:var(--green)}
   .metric-icon.investment{background:var(--gold-pale);color:var(--gold-dim)}
-  .metric-icon.cost{background:#dbeafe;color:#1d4ed8}
+  .metric-icon.cost{background:var(--blue-bg);color:var(--blue)}
+  .metric-icon.margin{background:#cffafe;color:#0e7490}
   .metric-icon.active{background:var(--purple-bg);color:var(--purple)}
   .metric-label{font-size:12px;color:var(--muted);margin-bottom:4px}
   .metric-value{font-size:22px;font-weight:700;color:var(--ink)}
+  .metric-value.neg{color:var(--red)}
+  .metric-sub{font-size:11px;color:var(--muted);margin-top:3px}
+  .skeleton{height:118px;border-radius:10px;background:linear-gradient(90deg,#eceff4 25%,#f6f8fb 50%,#eceff4 75%);background-size:200% 100%;animation:shimmer 1.2s infinite}
+  @keyframes shimmer{to{background-position:-200% 0}}
+
+  /* INSIGHTS */
+  .insights{display:grid;grid-template-columns:3fr 2fr;gap:12px;margin-bottom:24px}
+  @media(max-width:800px){.insights{grid-template-columns:1fr}}
+  .panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px}
+  .panel-title{font-size:14px;font-weight:600;margin-bottom:2px}
+  .panel-sub{font-size:12px;color:var(--muted);margin-bottom:14px}
+  .chart svg{width:100%;height:auto;display:block}
+  .chart text{font-family:inherit}
+  .stack{display:flex;height:12px;border-radius:6px;overflow:hidden;background:var(--surface2);margin-bottom:16px}
+  .stack div{min-width:2px;transition:width .3s}
+  .legend-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+  .legend-row:last-child{border-bottom:none}
+  .swatch{width:10px;height:10px;border-radius:3px;flex:none}
+  .legend-row .n{margin-left:auto;font-weight:600}
+  .legend-row .p{color:var(--muted);font-size:12px;min-width:76px;text-align:right}
 
   /* TABLE CARD */
   .section-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
@@ -76,26 +106,37 @@
   .section-title{font-size:14px;font-weight:600;color:var(--ink)}
   .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
   .search-box{display:flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:0 10px;height:34px}
-  .search-box input{border:none;background:transparent;font-size:13px;color:var(--ink);outline:none;width:160px}
+  .search-box:focus-within{border-color:var(--gold)}
+  .search-box input{border:none;background:transparent;font-size:13px;color:var(--ink);outline:none;width:170px}
   .search-box i{color:var(--muted);font-size:15px}
   select.fsel{height:34px;padding:0 10px;border:1px solid var(--border);border-radius:8px;background:var(--surface2);color:var(--ink);font-size:13px;cursor:pointer}
 
   /* TABLE */
   .tbl-wrap{overflow-x:auto}
-  table{width:100%;border-collapse:collapse;min-width:800px}
+  table{width:100%;border-collapse:collapse;min-width:900px}
+  #home table{min-width:720px}
   thead{background:var(--surface2)}
   th{padding:9px 12px;font-size:11px;font-weight:600;color:var(--muted);text-align:left;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+  th.sortable{cursor:pointer;user-select:none}
+  th.sortable:hover{color:var(--ink)}
+  th .arrow{font-size:10px;margin-left:3px;color:var(--gold)}
   td{padding:10px 12px;font-size:13px;color:var(--ink);border-bottom:1px solid var(--border);vertical-align:middle}
   tbody tr:last-child td{border-bottom:none}
   tbody tr:hover td{background:#fafbfd}
-  .badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600}
+  .muted{color:var(--muted)}
+  .nowrap{white-space:nowrap}
+  .badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
   .badge-completed{background:var(--green-bg);color:#166534}
   .badge-pending{background:var(--gold-pale);color:var(--gold-dim)}
+  .badge-in-progress{background:var(--blue-bg);color:#1e40af}
+  select.status-select{appearance:none;border:none;cursor:pointer;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;text-align:center}
   .profit-pos{color:var(--green);font-weight:600}
   .profit-neg{color:var(--red);font-weight:600}
   .actions-cell{display:flex;gap:5px}
   .empty{padding:48px;text-align:center;color:var(--muted);font-size:13px}
   .empty i{font-size:32px;display:block;margin-bottom:10px;color:#cbd5e1}
+  .table-foot{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);gap:10px;flex-wrap:wrap}
+  .pager{display:flex;gap:6px;align-items:center}
 
   /* MODAL */
   .overlay{display:none;position:fixed;inset:0;background:rgba(11,31,58,.6);align-items:center;justify-content:center;z-index:200;padding:20px}
@@ -109,15 +150,19 @@
   .flabel{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px}
   .finput{width:100%;height:38px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--ink);padding:0 12px;font-size:13px;outline:none;transition:border-color .15s, box-shadow .15s}
   .finput:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,151,58,.2)}
+  .finput.invalid{border-color:var(--red);box-shadow:0 0 0 3px rgba(185,28,28,.12)}
   .frow2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   @media(max-width:480px){.frow2{grid-template-columns:1fr}}
-  .profit-preview{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:11px 14px;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;margin-top:4px}
+  .ferr{display:none;background:var(--red-bg);color:var(--red);border:1px solid #fecaca;border-radius:8px;padding:9px 12px;font-size:12px;margin-bottom:14px}
+  .ferr.show{display:block}
+  .profit-preview{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:11px 14px;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;margin-top:4px;flex-wrap:wrap}
   .profit-preview strong{font-size:15px;font-weight:700}
 
   /* TOAST */
-  #toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;border-radius:8px;padding:11px 18px;font-size:13px;display:none;align-items:center;gap:9px;z-index:300;max-width:280px;border:1px solid var(--navy-light)}
+  #toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;border-radius:8px;padding:11px 18px;font-size:13px;display:none;align-items:center;gap:9px;z-index:300;max-width:320px;border:1px solid var(--navy-light)}
   #toast.show{display:flex;animation:tin .2s ease}
   #toast i{color:var(--gold-light);font-size:17px}
+  #toast.err i{color:#f87171}
   @keyframes tin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
   /* LOADING */
@@ -126,11 +171,19 @@
   @keyframes spin{to{transform:rotate(360deg)}}
 
   /* RESPONSIVE */
+  @media(max-width:700px){
+    nav{padding:0 12px}
+    .brand{margin-right:12px}
+    .sync .sync-text{display:none}
+    .nav-btn span{display:none}
+  }
   @media(max-width:600px){
     .hero-title{font-size:22px}
     .container{padding:16px 12px}
     .section-top{flex-direction:column;align-items:flex-start}
+    .search-box input{width:130px}
   }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -140,10 +193,11 @@
     <div class="brand-mark"><i class="ti ti-chart-arrows-vertical"></i></div>
     <span class="brand-name">Fyn<span>lo</span></span>
   </div>
-  <span class="nav-link active" id="nl-home" onclick="showPage('home')">Overview</span>
-  <span class="nav-link" id="nl-dashboard" onclick="showPage('dashboard')">Projects</span>
+  <button class="nav-link active" id="nl-home" onclick="showPage('home')">Overview</button>
+  <button class="nav-link" id="nl-dashboard" onclick="showPage('dashboard')">Projects</button>
   <div class="nav-right">
-    <button class="nav-btn" onclick="openModal()"><i class="ti ti-plus"></i> New entry</button>
+    <div class="sync" id="sync" title="Data refreshes automatically"><span class="sync-dot"></span><span class="sync-text" id="sync-text">Connecting…</span></div>
+    <button class="nav-btn" onclick="openModal()"><i class="ti ti-plus"></i><span> New entry</span></button>
   </div>
 </nav>
 
@@ -162,10 +216,20 @@
   </div>
   <div class="container">
     <div id="home-metrics" class="metric-grid"></div>
-    <div class="section-card">
-      <div class="section-top">
-        <span class="section-title">Recent projects</span>
+    <div class="insights">
+      <div class="panel">
+        <div class="panel-title">Profit by month</div>
+        <div class="panel-sub">Last 6 months, by date added</div>
+        <div class="chart" id="chart-monthly"></div>
       </div>
+      <div class="panel">
+        <div class="panel-title">Status breakdown</div>
+        <div class="panel-sub">Projects and profit per stage</div>
+        <div id="chart-status"></div>
+      </div>
+    </div>
+    <div class="section-card">
+      <div class="section-top"><span class="section-title">Recent projects</span></div>
       <div class="tbl-wrap">
         <table>
           <thead><tr>
@@ -187,24 +251,30 @@
       <div class="section-top">
         <span class="section-title">All projects</span>
         <div class="controls">
-          <div class="search-box"><i class="ti ti-search"></i><input id="srch" type="text" placeholder="Search customer or work…" oninput="loadTable()"></div>
-          <select class="fsel" id="sf" onchange="loadTable()">
+          <div class="search-box"><i class="ti ti-search"></i><input id="srch" type="search" placeholder="Search projects…" aria-label="Search projects" oninput="onSearch()"></div>
+          <select class="fsel" id="sf" aria-label="Filter by status" onchange="onFilter()">
             <option value="">All status</option>
-            <option value="Completed">Completed</option>
             <option value="Pending">Pending</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
           </select>
+          <button class="btn btn-sm" onclick="exportCsv()" title="Download the current view as CSV"><i class="ti ti-download"></i> Export</button>
           <button class="btn btn-gold btn-sm" onclick="openModal()"><i class="ti ti-plus"></i> Add</button>
         </div>
       </div>
       <div class="tbl-wrap">
         <table>
-          <thead><tr>
-            <th>Customer</th><th>Description</th><th>Project cost</th>
-            <th>Done by</th><th>Investor</th><th>Investment</th>
-            <th>Profit</th><th>Status</th><th>Actions</th>
-          </tr></thead>
-          <tbody id="main-tbody"><tr><td colspan="9"><div class="loading"><div class="spinner"></div><br>Loading…</div></td></tr></tbody>
+          <thead><tr id="main-thead"></tr></thead>
+          <tbody id="main-tbody"><tr><td colspan="10"><div class="loading"><div class="spinner"></div><br>Loading…</div></td></tr></tbody>
         </table>
+      </div>
+      <div class="table-foot">
+        <span id="count-label"></span>
+        <div class="pager">
+          <button class="btn btn-sm" id="prev" onclick="changePage(-1)"><i class="ti ti-chevron-left"></i> Prev</button>
+          <span id="page-label"></span>
+          <button class="btn btn-sm" id="next" onclick="changePage(1)">Next <i class="ti ti-chevron-right"></i></button>
+        </div>
       </div>
     </div>
   </div>
@@ -215,42 +285,44 @@
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mtitle">
     <div class="modal-head">
       <span class="modal-title" id="mtitle">New project entry</span>
-      <button class="btn btn-sm" onclick="closeModal()"><i class="ti ti-x"></i></button>
+      <button class="btn btn-sm" onclick="closeModal()" aria-label="Close"><i class="ti ti-x"></i></button>
     </div>
     <div class="modal-body">
       <input type="hidden" id="eid">
+      <div class="ferr" id="ferr" role="alert"></div>
       <div class="frow">
-        <label class="flabel">Customer name *</label>
-        <input class="finput" id="fc" type="text" placeholder="e.g. Acme Corp">
+        <label class="flabel" for="fc">Customer name *</label>
+        <input class="finput" id="fc" type="text" maxlength="120" placeholder="e.g. Acme Corp">
       </div>
       <div class="frow">
-        <label class="flabel">Work description *</label>
-        <input class="finput" id="fw" type="text" placeholder="e.g. Website redesign">
+        <label class="flabel" for="fw">Work description *</label>
+        <input class="finput" id="fw" type="text" maxlength="300" placeholder="e.g. Website redesign">
       </div>
       <div class="frow2">
         <div class="frow">
-          <label class="flabel">Project cost (₹) *</label>
-          <input class="finput" id="fco" type="number" min="0" placeholder="0" oninput="updatePreview()">
+          <label class="flabel" for="fco">Project cost (₹) *</label>
+          <input class="finput" id="fco" type="number" min="0" step="any" placeholder="0" oninput="updatePreview()">
         </div>
         <div class="frow">
-          <label class="flabel">Work completed by</label>
-          <input class="finput" id="fb" type="text" placeholder="Employee name">
+          <label class="flabel" for="fb">Work completed by</label>
+          <input class="finput" id="fb" type="text" maxlength="120" placeholder="Employee name">
         </div>
       </div>
       <div class="frow2">
         <div class="frow">
-          <label class="flabel">Investor name</label>
-          <input class="finput" id="fi" type="text" placeholder="Investor name">
+          <label class="flabel" for="fi">Investor name</label>
+          <input class="finput" id="fi" type="text" maxlength="120" placeholder="Investor name">
         </div>
         <div class="frow">
-          <label class="flabel">Investment amount (₹)</label>
-          <input class="finput" id="fa" type="number" min="0" placeholder="0" oninput="updatePreview()">
+          <label class="flabel" for="fa">Investment amount (₹)</label>
+          <input class="finput" id="fa" type="number" min="0" step="any" placeholder="0" oninput="updatePreview()">
         </div>
       </div>
       <div class="frow">
-        <label class="flabel">Status</label>
+        <label class="flabel" for="fst">Status</label>
         <select class="finput" id="fst">
           <option value="Pending">Pending</option>
+          <option value="In Progress">In Progress</option>
           <option value="Completed">Completed</option>
         </select>
       </div>
@@ -263,146 +335,328 @@
     </div>
     <div class="modal-foot">
       <button class="btn" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-gold" onclick="saveEntry()"><i class="ti ti-check"></i> Save entry</button>
+      <button class="btn btn-gold" id="save-btn" onclick="saveEntry()"><i class="ti ti-check"></i> Save entry</button>
     </div>
   </div>
 </div>
 
 <!-- TOAST -->
-<div id="toast"><i class="ti ti-circle-check"></i><span id="toast-msg">Done</span></div>
+<div id="toast" role="status" aria-live="polite"><i class="ti ti-circle-check"></i><span id="toast-msg">Done</span></div>
 
 <script>
-const fmt = n => '₹' + Number(n || 0).toLocaleString('en-IN');
-const esc = s => String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-let toastTimer;
+'use strict';
 
-async function api(path, opts = {}) {
-  const res = await fetch(path, { headers: {'Content-Type':'application/json'}, ...opts });
-  if (!res.ok) { const e = await res.json().catch(()=>({error:'Request failed'})); throw new Error(e.error || 'Error'); }
-  return res.json();
+/* ---------- helpers ---------- */
+const PAGE_SIZE = 10;
+const REFRESH_MS = 15000;
+const STATUSES = ['Pending', 'In Progress', 'Completed'];
+const STATUS_COLOR = { 'Pending': '#C9973A', 'In Progress': '#1d4ed8', 'Completed': '#15803d' };
+
+const $ = id => document.getElementById(id);
+const fmt = n => (n < 0 ? '-' : '') + '₹' + Math.abs(Number(n) || 0).toLocaleString('en-IN', { maximumFractionDigits: 2 });
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const slug = s => String(s).toLowerCase().replace(/\s+/g, '-');
+const dateFmt = iso => new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+
+// Indian-style compact numbers: 1.2L, 3.4Cr
+function compact(n) {
+  const a = Math.abs(n), sign = n < 0 ? '-' : '';
+  const f = (v, u) => sign + '₹' + (Math.round(v * 10) / 10) + u;
+  if (a >= 1e7) return f(a / 1e7, 'Cr');
+  if (a >= 1e5) return f(a / 1e5, 'L');
+  if (a >= 1e3) return f(a / 1e3, 'K');
+  return sign + '₹' + Math.round(a);
 }
 
-function showPage(name) {
+async function api(path, opts = {}) {
+  let res;
+  try {
+    res = await fetch(path, { headers: { 'Content-Type': 'application/json' }, ...opts });
+  } catch {
+    setSync(false);
+    throw new Error('Cannot reach the server.');
+  }
+  setSync(true);
+  if (!res.ok) {
+    const e = await res.json().catch(() => ({}));
+    const err = new Error(e.error || 'Request failed');
+    err.details = e.details || {};
+    throw err;
+  }
+  return res;
+}
+const getJson = async (path, opts) => (await api(path, opts)).json();
+
+/* ---------- live sync indicator ---------- */
+let lastSync = 0;
+function setSync(ok) {
+  if (ok) lastSync = Date.now();
+  $('sync').classList.toggle('off', !ok);
+  renderSync(ok);
+}
+function renderSync(ok = !$('sync').classList.contains('off')) {
+  if (!ok) { $('sync-text').textContent = 'Offline — retrying'; return; }
+  const s = Math.round((Date.now() - lastSync) / 1000);
+  $('sync-text').textContent = s < 5 ? 'Live · just synced' : `Live · synced ${s}s ago`;
+}
+setInterval(renderSync, 1000);
+
+/* ---------- navigation ---------- */
+let currentPage = 'home';
+function showPage(name, push = true) {
+  if (!$(name)) name = 'home';
+  currentPage = name;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
-  document.getElementById(name).classList.add('active');
-  document.getElementById('nl-' + name).classList.add('active');
+  $(name).classList.add('active');
+  $('nl-' + name).classList.add('active');
+  if (push) history.replaceState(null, '', name === 'home' ? location.pathname : '#' + name);
+  window.scrollTo(0, 0);
   loadAll();
 }
 
-async function loadMetrics(id) {
-  const m = await api('/api/metrics');
-  document.getElementById(id).innerHTML = `
-    <div class="metric-card profit"><div class="metric-icon profit"><i class="ti ti-trending-up"></i></div><div class="metric-label">Total profit</div><div class="metric-value">${fmt(m.total_profit)}</div></div>
-    <div class="metric-card investment"><div class="metric-icon investment"><i class="ti ti-coin"></i></div><div class="metric-label">Total investment</div><div class="metric-value">${fmt(m.total_investment)}</div></div>
-    <div class="metric-card cost"><div class="metric-icon cost"><i class="ti ti-file-invoice"></i></div><div class="metric-label">Total project cost</div><div class="metric-value">${fmt(m.total_cost)}</div></div>
-    <div class="metric-card active"><div class="metric-icon active"><i class="ti ti-users"></i></div><div class="metric-label">Active projects</div><div class="metric-value">${m.active_projects}</div></div>`;
+/* ---------- metrics + charts ---------- */
+function metricCards(m) {
+  const card = (cls, icon, label, value, sub = '', neg = false) =>
+    `<div class="metric-card ${cls}"><div class="metric-icon ${cls}"><i class="ti ti-${icon}"></i></div>
+     <div class="metric-label">${label}</div><div class="metric-value${neg ? ' neg' : ''}">${value}</div>${sub ? `<div class="metric-sub">${sub}</div>` : ''}</div>`;
+  return [
+    card('profit', 'trending-up', 'Total profit', fmt(m.total_profit), `Avg ${fmt(m.average_profit)} per project`, m.total_profit < 0),
+    card('investment', 'coin', 'Total investment', fmt(m.total_investment)),
+    card('cost', 'file-invoice', 'Total project cost', fmt(m.total_cost), `${m.total_projects} project${m.total_projects === 1 ? '' : 's'}`),
+    card('margin', 'percentage', 'Profit margin', `${m.profit_margin}%`, 'Profit ÷ project cost', m.profit_margin < 0),
+    card('active', 'users', 'Active projects', m.active_projects, 'Pending + in progress'),
+  ].join('');
 }
 
+function monthlyChart(monthly) {
+  const W = 420, H = 190, padT = 22, padB = 26, padX = 10;
+  const vals = monthly.map(m => m.profit || 0);
+  const max = Math.max(0, ...vals), min = Math.min(0, ...vals);
+  if (max === 0 && min === 0) return `<div class="empty" style="padding:30px"><i class="ti ti-chart-bar"></i>No data for the last 6 months.</div>`;
+  const span = max - min, plotH = H - padT - padB;
+  const y = v => padT + ((max - v) / span) * plotH;
+  const slot = (W - padX * 2) / monthly.length, bw = Math.min(40, slot * 0.6);
+  const bars = monthly.map((m, i) => {
+    const v = m.profit || 0, x = padX + slot * i + (slot - bw) / 2;
+    const top = Math.min(y(v), y(0)), h = Math.max(Math.abs(y(v) - y(0)), v === 0 ? 0 : 2);
+    const label = new Date(m.month + '-01T00:00:00Z').toLocaleDateString('en-IN', { month: 'short', timeZone: 'UTC' });
+    const ty = v >= 0 ? top - 5 : top + h + 11;
+    return `<g><title>${label}: ${fmt(v)} from ${m.projects} project(s)</title>
+      <rect x="${x}" y="${top}" width="${bw}" height="${h}" rx="4" fill="${v < 0 ? '#b91c1c' : '#C9973A'}"/>
+      ${v !== 0 ? `<text x="${x + bw / 2}" y="${ty}" text-anchor="middle" font-size="10" font-weight="600" fill="#0B1F3A">${compact(v)}</text>` : ''}
+      <text x="${x + bw / 2}" y="${H - 8}" text-anchor="middle" font-size="11" fill="#5a6a82">${label}</text></g>`;
+  }).join('');
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Profit by month bar chart">
+    <line x1="${padX}" x2="${W - padX}" y1="${y(0)}" y2="${y(0)}" stroke="#cbd5e1" stroke-width="1"/>${bars}</svg>`;
+}
+
+function statusPanel(by) {
+  const total = by.reduce((s, r) => s + r.count, 0);
+  if (!total) return `<div class="empty" style="padding:30px"><i class="ti ti-chart-pie"></i>No projects yet.</div>`;
+  const stack = by.filter(r => r.count).map(r =>
+    `<div title="${esc(r.status)}: ${r.count}" style="width:${(r.count / total) * 100}%;background:${STATUS_COLOR[r.status]}"></div>`).join('');
+  const rows = by.map(r => `<div class="legend-row"><span class="swatch" style="background:${STATUS_COLOR[r.status]}"></span>
+    <span>${esc(r.status)}</span><span class="n">${r.count}</span><span class="p ${r.profit < 0 ? 'profit-neg' : ''}">${fmt(r.profit)}</span></div>`).join('');
+  return `<div class="stack">${stack}</div>${rows}`;
+}
+
+async function loadMetrics() {
+  const m = await getJson('/api/metrics');
+  $('home-metrics').innerHTML = $('dash-metrics').innerHTML = metricCards(m);
+  $('chart-monthly').innerHTML = monthlyChart(m.monthly);
+  $('chart-status').innerHTML = statusPanel(m.by_status);
+}
+
+/* ---------- home: recent projects ---------- */
 async function loadHomeTable() {
-  const rows = await api('/api/projects');
-  const recent = rows.slice(0, 6);
-  const tb = document.getElementById('home-tbody');
-  if (!recent.length) { tb.innerHTML = `<tr><td colspan="6"><div class="empty"><i class="ti ti-inbox"></i>No entries yet. Add your first project.</div></td></tr>`; return; }
-  tb.innerHTML = recent.map(r => `<tr>
-    <td><strong>${esc(r.customer_name)}</strong></td>
-    <td style="color:var(--muted)">${esc(r.work_description)}</td>
-    <td>${fmt(r.project_cost)}</td>
-    <td style="color:var(--muted)">${esc(r.investor_name || '—')}</td>
-    <td class="${r.profit < 0 ? 'profit-neg' : 'profit-pos'}">${fmt(r.profit)}</td>
-    <td><span class="badge badge-${r.status.toLowerCase()}">${r.status}</span></td>
-  </tr>`).join('');
-}
-
-async function loadTable() {
-  const search = document.getElementById('srch').value;
-  const status = document.getElementById('sf').value;
-  const params = new URLSearchParams();
-  if (search) params.append('search', search);
-  if (status) params.append('status', status);
-  const rows = await api('/api/projects?' + params);
-  const tb = document.getElementById('main-tbody');
-  if (!rows.length) { tb.innerHTML = `<tr><td colspan="9"><div class="empty"><i class="ti ti-search-off"></i>No results found.</div></td></tr>`; return; }
+  const rows = await getJson('/api/projects?limit=6&sort=created_at&order=desc');
+  const tb = $('home-tbody');
+  if (!rows.length) { tb.innerHTML = `<tr><td colspan="6"><div class="empty"><i class="ti ti-inbox"></i>No entries yet. Add your first project.</div></td></tr>`; return; }
   tb.innerHTML = rows.map(r => `<tr>
     <td><strong>${esc(r.customer_name)}</strong></td>
-    <td style="color:var(--muted)">${esc(r.work_description)}</td>
+    <td class="muted">${esc(r.work_description)}</td>
     <td>${fmt(r.project_cost)}</td>
-    <td style="color:var(--muted)">${esc(r.work_completed_by || '—')}</td>
-    <td style="color:var(--muted)">${esc(r.investor_name || '—')}</td>
-    <td>${fmt(r.investment_amount)}</td>
+    <td class="muted">${esc(r.investor_name || '—')}</td>
     <td class="${r.profit < 0 ? 'profit-neg' : 'profit-pos'}">${fmt(r.profit)}</td>
-    <td><span class="badge badge-${r.status.toLowerCase()}">${r.status}</span></td>
-    <td><div class="actions-cell">
-      <button class="btn btn-sm" onclick="editRow(${r.id})" aria-label="Edit"><i class="ti ti-edit"></i></button>
-      <button class="btn btn-sm btn-danger" onclick="delRow(${r.id})" aria-label="Delete"><i class="ti ti-trash"></i></button>
-    </div></td>
+    <td><span class="badge badge-${slug(r.status)}">${esc(r.status)}</span></td>
   </tr>`).join('');
 }
 
+/* ---------- projects table: search, filter, sort, paginate ---------- */
+const state = { search: '', status: '', sort: 'created_at', order: 'desc', page: 0, total: 0 };
+const COLUMNS = [
+  ['customer_name', 'Customer', true], [null, 'Description'], ['project_cost', 'Project cost', true],
+  [null, 'Done by'], [null, 'Investor'], ['investment_amount', 'Investment', true],
+  ['profit', 'Profit', true], ['status', 'Status', true], ['created_at', 'Added', true], [null, 'Actions'],
+];
+
+function renderHead() {
+  $('main-thead').innerHTML = COLUMNS.map(([key, label, sortable]) => {
+    if (!sortable) return `<th>${label}</th>`;
+    const active = state.sort === key;
+    const arrow = active ? `<span class="arrow">${state.order === 'asc' ? '▲' : '▼'}</span>` : '';
+    return `<th class="sortable" onclick="setSort('${key}')" aria-sort="${active ? (state.order === 'asc' ? 'ascending' : 'descending') : 'none'}">${label}${arrow}</th>`;
+  }).join('');
+}
+
+function setSort(key) {
+  state.order = state.sort === key && state.order === 'desc' ? 'asc' : 'desc';
+  if (state.sort !== key && key === 'customer_name') state.order = 'asc';
+  state.sort = key; state.page = 0;
+  renderHead(); loadTable().catch(showError);
+}
+
+let searchTimer;
+function onSearch() {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => { state.search = $('srch').value.trim(); state.page = 0; loadTable().catch(showError); }, 250);
+}
+function onFilter() { state.status = $('sf').value; state.page = 0; loadTable().catch(showError); }
+function changePage(d) { state.page = Math.max(0, state.page + d); loadTable().catch(showError); }
+
+function queryString(extra = {}) {
+  const p = new URLSearchParams({ sort: state.sort, order: state.order, ...extra });
+  if (state.search) p.set('search', state.search);
+  if (state.status) p.set('status', state.status);
+  return p.toString();
+}
+function exportCsv() { window.location.href = '/api/export.csv?' + queryString(); }
+
+let tableReq = 0;
+async function loadTable() {
+  const req = ++tableReq;
+  const res = await api('/api/projects?' + queryString({ limit: PAGE_SIZE, offset: state.page * PAGE_SIZE }));
+  const rows = await res.json();
+  if (req !== tableReq) return; // a newer request superseded this one
+  state.total = Number(res.headers.get('X-Total-Count')) || 0;
+  const pages = Math.max(1, Math.ceil(state.total / PAGE_SIZE));
+  if (state.page > pages - 1) { state.page = pages - 1; return loadTable(); }
+
+  const tb = $('main-tbody');
+  if (!rows.length) {
+    const filtered = state.search || state.status;
+    tb.innerHTML = `<tr><td colspan="10"><div class="empty"><i class="ti ti-${filtered ? 'search-off' : 'inbox'}"></i>${filtered ? 'No results found.' : 'No entries yet. Add your first project.'}</div></td></tr>`;
+  } else {
+    tb.innerHTML = rows.map(r => `<tr>
+      <td><strong>${esc(r.customer_name)}</strong></td>
+      <td class="muted">${esc(r.work_description)}</td>
+      <td class="nowrap">${fmt(r.project_cost)}</td>
+      <td class="muted">${esc(r.work_completed_by || '—')}</td>
+      <td class="muted">${esc(r.investor_name || '—')}</td>
+      <td class="nowrap">${fmt(r.investment_amount)}</td>
+      <td class="nowrap ${r.profit < 0 ? 'profit-neg' : 'profit-pos'}">${fmt(r.profit)}</td>
+      <td><select class="status-select badge-${slug(r.status)}" aria-label="Status for ${esc(r.customer_name)}" onchange="changeStatus(${r.id}, this.value)">
+        ${STATUSES.map(s => `<option${s === r.status ? ' selected' : ''}>${s}</option>`).join('')}</select></td>
+      <td class="muted nowrap">${dateFmt(r.created_at)}</td>
+      <td><div class="actions-cell">
+        <button class="btn btn-sm" onclick="editRow(${r.id})" title="Edit" aria-label="Edit ${esc(r.customer_name)}"><i class="ti ti-edit"></i></button>
+        <button class="btn btn-sm btn-danger" onclick="delRow(${r.id})" title="Delete" aria-label="Delete ${esc(r.customer_name)}"><i class="ti ti-trash"></i></button>
+      </div></td></tr>`).join('');
+  }
+  const from = state.total ? state.page * PAGE_SIZE + 1 : 0;
+  $('count-label').textContent = state.total ? `Showing ${from}–${from + rows.length - 1} of ${state.total}` : '0 projects';
+  $('page-label').textContent = `Page ${state.page + 1} of ${pages}`;
+  $('prev').disabled = state.page === 0;
+  $('next').disabled = state.page >= pages - 1;
+}
+
+async function changeStatus(id, status) {
+  try {
+    await api(`/api/projects/${id}/status`, { method: 'PATCH', body: JSON.stringify({ status }) });
+    toast(`Marked as ${status}`);
+    loadAll();
+  } catch (e) { toast(e.message, 'err'); loadAll(); }
+}
+
+/* ---------- load + auto refresh ---------- */
 function loadAll() {
-  loadMetrics('home-metrics').catch(console.error);
-  loadMetrics('dash-metrics').catch(console.error);
-  loadHomeTable().catch(console.error);
-  loadTable().catch(console.error);
+  loadMetrics().catch(() => {});
+  if (currentPage === 'home') loadHomeTable().catch(() => {});
+  else loadTable().catch(() => {});
+}
+const showError = e => toast(e.message, 'err');
+
+setInterval(() => {
+  const busy = $('overlay').classList.contains('open') || document.activeElement?.matches('select.status-select');
+  if (!document.hidden && !busy) loadAll();
+}, REFRESH_MS);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) loadAll(); });
+
+/* ---------- modal ---------- */
+const FIELD_IDS = { customer_name: 'fc', work_description: 'fw', project_cost: 'fco', work_completed_by: 'fb', investor_name: 'fi', investment_amount: 'fa', status: 'fst' };
+
+function showFormError(msg, fields = []) {
+  Object.values(FIELD_IDS).forEach(id => $(id).classList.remove('invalid'));
+  fields.forEach(f => FIELD_IDS[f] && $(FIELD_IDS[f]).classList.add('invalid'));
+  $('ferr').textContent = msg || '';
+  $('ferr').classList.toggle('show', !!msg);
 }
 
 function openModal(reset = true) {
+  showFormError('');
   if (reset) {
-    document.getElementById('mtitle').textContent = 'New project entry';
-    document.getElementById('eid').value = '';
-    ['fc','fw','fb','fi'].forEach(id => document.getElementById(id).value = '');
-    ['fco','fa'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('fst').value = 'Pending';
+    $('mtitle').textContent = 'New project entry';
+    $('eid').value = '';
+    ['fc', 'fw', 'fb', 'fi', 'fco', 'fa'].forEach(id => $(id).value = '');
+    $('fst').value = 'Pending';
     updatePreview();
   }
-  document.getElementById('overlay').classList.add('open');
-  setTimeout(() => document.getElementById('fc').focus(), 50);
+  $('overlay').classList.add('open');
+  setTimeout(() => $('fc').focus(), 50);
 }
-function closeModal() { document.getElementById('overlay').classList.remove('open'); }
-function overlayClick(e) { if (e.target === document.getElementById('overlay')) closeModal(); }
+function closeModal() { $('overlay').classList.remove('open'); }
+function overlayClick(e) { if (e.target === $('overlay')) closeModal(); }
+document.addEventListener('keydown', e => {
+  if (!$('overlay').classList.contains('open')) return;
+  if (e.key === 'Escape') closeModal();
+  if (e.key === 'Enter' && e.target.tagName === 'INPUT') { e.preventDefault(); saveEntry(); }
+});
 
 function updatePreview() {
-  const c = parseFloat(document.getElementById('fco').value) || 0;
-  const a = parseFloat(document.getElementById('fa').value) || 0;
-  const p = c - a;
-  const el = document.getElementById('pp');
-  el.textContent = fmt(p);
-  el.style.color = p < 0 ? 'var(--red)' : 'var(--green)';
+  const p = (parseFloat($('fco').value) || 0) - (parseFloat($('fa').value) || 0);
+  $('pp').textContent = fmt(p);
+  $('pp').style.color = p < 0 ? 'var(--red)' : 'var(--green)';
 }
 
 async function saveEntry() {
-  const customer_name = document.getElementById('fc').value.trim();
-  const work_description = document.getElementById('fw').value.trim();
-  if (!customer_name || !work_description) { toast('Fill in the required fields', 'warn'); return; }
   const body = {
-    customer_name, work_description,
-    project_cost: parseFloat(document.getElementById('fco').value) || 0,
-    work_completed_by: document.getElementById('fb').value.trim(),
-    investor_name: document.getElementById('fi').value.trim(),
-    investment_amount: parseFloat(document.getElementById('fa').value) || 0,
-    status: document.getElementById('fst').value
+    customer_name: $('fc').value.trim(),
+    work_description: $('fw').value.trim(),
+    project_cost: $('fco').value,
+    work_completed_by: $('fb').value.trim(),
+    investor_name: $('fi').value.trim(),
+    investment_amount: $('fa').value,
+    status: $('fst').value,
   };
-  const eid = document.getElementById('eid').value;
+  const missing = ['customer_name', 'work_description'].filter(k => !body[k]);
+  if (missing.length) return showFormError('Customer name and work description are required.', missing);
+
+  const eid = $('eid').value;
+  $('save-btn').disabled = true;
   try {
-    if (eid) { await api('/api/projects/' + eid, { method: 'PUT', body: JSON.stringify(body) }); toast('Entry updated'); }
-    else { await api('/api/projects', { method: 'POST', body: JSON.stringify(body) }); toast('Entry added'); }
+    await api(eid ? '/api/projects/' + eid : '/api/projects', { method: eid ? 'PUT' : 'POST', body: JSON.stringify(body) });
+    toast(eid ? 'Entry updated' : 'Entry added');
     closeModal(); loadAll();
-  } catch (e) { toast(e.message, 'err'); }
+  } catch (e) { showFormError(e.message, Object.keys(e.details || {})); }
+  finally { $('save-btn').disabled = false; }
 }
 
 async function editRow(id) {
-  const r = await api('/api/projects/' + id);
-  document.getElementById('mtitle').textContent = 'Edit entry';
-  document.getElementById('eid').value = r.id;
-  document.getElementById('fc').value = r.customer_name;
-  document.getElementById('fw').value = r.work_description;
-  document.getElementById('fco').value = r.project_cost;
-  document.getElementById('fb').value = r.work_completed_by || '';
-  document.getElementById('fi').value = r.investor_name || '';
-  document.getElementById('fa').value = r.investment_amount || 0;
-  document.getElementById('fst').value = r.status;
-  updatePreview();
-  openModal(false);
+  try {
+    const r = await getJson('/api/projects/' + id);
+    $('mtitle').textContent = 'Edit entry';
+    $('eid').value = r.id;
+    $('fc').value = r.customer_name;
+    $('fw').value = r.work_description;
+    $('fco').value = r.project_cost;
+    $('fb').value = r.work_completed_by || '';
+    $('fi').value = r.investor_name || '';
+    $('fa').value = r.investment_amount || '';
+    $('fst').value = r.status;
+    updatePreview();
+    openModal(false);
+  } catch (e) { toast(e.message, 'err'); loadAll(); }
 }
 
 async function delRow(id) {
@@ -411,27 +665,21 @@ async function delRow(id) {
   catch (e) { toast(e.message, 'err'); }
 }
 
+/* ---------- toast ---------- */
+let toastTimer;
 function toast(msg, type = 'ok') {
   clearTimeout(toastTimer);
-  const icons = { ok: 'ti-circle-check', warn: 'ti-alert-circle', err: 'ti-circle-x' };
-  document.querySelector('#toast i').className = 'ti ' + (icons[type] || icons.ok);
-  document.getElementById('toast-msg').textContent = msg;
-  const el = document.getElementById('toast');
+  const el = $('toast');
+  el.classList.toggle('err', type === 'err');
+  el.querySelector('i').className = 'ti ' + (type === 'err' ? 'ti-circle-x' : 'ti-circle-check');
+  $('toast-msg').textContent = msg;
   el.classList.add('show');
-  toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
 }
 
-// add GET single project endpoint for edit
-(async () => {
-  const orig = api;
-  window.api = async (path, opts = {}) => {
-    const res = await fetch(path, { headers: {'Content-Type':'application/json'}, ...opts });
-    if (!res.ok) { const e = await res.json().catch(()=>({error:'Request failed'})); throw new Error(e.error || 'Error'); }
-    return res.json();
-  };
-})();
-
-loadAll();
+/* ---------- boot ---------- */
+renderHead();
+showPage(location.hash === '#dashboard' ? 'dashboard' : 'home', false);
 </script>
 </body>
 </html>
